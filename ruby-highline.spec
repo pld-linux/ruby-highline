@@ -1,4 +1,5 @@
-Summary:	A high-level IO library that provides validation, type conversion, and more for command-line interfaces
+Summary:	A high-level IO library with validation, type conversion etc. for command-line interfaces
+Summary(pl.UTF-8):	Wysokopoziomowa biblioteka I/O z kontrolą poprawności, konwersją typów itp. do aplikacji CLI
 Name:		ruby-highline
 Version:	1.5.0
 Release:	0.1
@@ -21,13 +22,22 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 A high-level IO library that provides validation, type conversion, and
 more for command-line interfaces.
 
+%description -l pl.UTF-8
+Wysokopoziomowa biblioteka wejścia-wyjścia obsługująca kontrolę
+poprawności, konwersję typów i inne, przeznaczona dla interfejsów
+linii poleceń.
+
 %package rdoc
 Summary:	Documentation files for highline library
+Summary(pl.UTF-8):	Pliki dokumentacji do biblioteki highline
 Group:		Documentation
 Requires:	ruby >= 1:1.8.7-4
 
 %description rdoc
 Documentation files for highline library.
+
+%description rdoc -l pl.UTF-8
+Pliki dokumentacji do biblioteki highline.
 
 %prep
 %setup -q -n highline-%{version}
