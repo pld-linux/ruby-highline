@@ -1,12 +1,12 @@
 Summary:	A high-level IO library with validation, type conversion etc. for command-line interfaces
 Summary(pl.UTF-8):	Wysokopoziomowa biblioteka I/O z kontrolą poprawności, konwersją typów itp. do aplikacji CLI
 Name:		ruby-highline
-Version:	1.5.0
+Version:	1.5.1
 Release:	0.1
-License:	GPL
+License:	GPL v2, Ruby License
 Group:		Development/Libraries
-Source0:	http://rubyforge.org/frs/download.php/46329/highline-%{version}.tgz
-# Source0-md5:	b60d5199a9e19a9ac6d20a141cef98e5
+Source0:	http://rubyforge.org/frs/download.php/56461/highline-%{version}.tgz
+# Source0-md5:	23d9221b5ffd55e5af35f5aa90590c57
 URL:		http://highline.rubyforge.org/
 BuildRequires:	rpmbuild(macros) >= 1.277
 BuildRequires:	ruby >= 1:1.8.6
