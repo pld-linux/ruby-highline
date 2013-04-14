@@ -1,21 +1,29 @@
-Summary:	A high-level IO library with validation, type conversion etc. for command-line interfaces
+#
+# Conditional build:
+%bcond_with	tests		# build without tests
+
+%define	gem_name highline
+Summary:	HighLine is a high-level command-line IO library
 Summary(pl.UTF-8):	Wysokopoziomowa biblioteka I/O z kontrolą poprawności, konwersją typów itp. do aplikacji CLI
-Name:		ruby-highline
-Version:	1.5.1
-Release:	0.1
+Name:		ruby-%{gem_name}
+Version:	1.6.11
+Release:	1
 License:	GPL v2, Ruby License
 Group:		Development/Libraries
-Source0:	http://rubyforge.org/frs/download.php/56461/highline-%{version}.tgz
-# Source0-md5:	23d9221b5ffd55e5af35f5aa90590c57
+Source0:	http://rubygems.org/gems/%{gem_name}-%{version}.gem
+# Source0-md5:	878416e4943c73f7429845765fe4195d
 URL:		http://highline.rubyforge.org/
-BuildRequires:	rpmbuild(macros) >= 1.656
 BuildRequires:	rpm-rubyprov
+BuildRequires:	rpmbuild(macros) >= 1.656
+BuildRequires:	ruby-minitest
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
 A high-level IO library that provides validation, type conversion, and
-more for command-line interfaces.
+more for command-line interfaces. HighLine also includes a complete
+menu system that can crank out anything from simple list selection to
+complete shells with just minutes of work.
 
 %description -l pl.UTF-8
 Wysokopoziomowa biblioteka wejścia-wyjścia obsługująca kontrolę
@@ -44,6 +52,10 @@ ruby setup.rb config \
 
 ruby setup.rb setup
 
+%if %{with tests}
+ruby -S testrb -Ilib test/*
+%endif
+
 rdoc --op rdoc -S --main README README lib
 rdoc --ri --op ri lib
 
@@ -57,19 +69,19 @@ rm ri/created.rid
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{ruby_vendorlibdir},%{ruby_ridir},%{ruby_rdocdir}}
+install -d $RPM_BUILD_ROOT{%{ruby_vendorlibdir},%{ruby_ridir},%{ruby_rdocdir}/%{name}-%{version}}
 ruby setup.rb install \
 	--prefix=$RPM_BUILD_ROOT
 
 cp -a ri/* $RPM_BUILD_ROOT%{ruby_ridir}
-cp -a rdoc $RPM_BUILD_ROOT%{ruby_rdocdir}/%{name}-%{version}
+cp -a rdoc/* $RPM_BUILD_ROOT%{ruby_rdocdir}/%{name}-%{version}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc CHANGELOG README TODO
+%doc README CHANGELOG TODO AUTHORS INSTALL LICENSE
 %{ruby_vendorlibdir}/highline.rb
 %{ruby_vendorlibdir}/highline
 
