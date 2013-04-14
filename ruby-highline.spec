@@ -8,15 +8,10 @@ Group:		Development/Libraries
 Source0:	http://rubyforge.org/frs/download.php/56461/highline-%{version}.tgz
 # Source0-md5:	23d9221b5ffd55e5af35f5aa90590c57
 URL:		http://highline.rubyforge.org/
-BuildRequires:	rpmbuild(macros) >= 1.277
-BuildRequires:	ruby >= 1:1.8.6
-BuildRequires:	ruby-modules
-%{?ruby_mod_ver_requires_eq}
-#BuildArch:	noarch
+BuildRequires:	rpmbuild(macros) >= 1.656
+BuildRequires:	rpm-rubyprov
+BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
-
-# nothing to be placed there. we're not noarch only because of ruby packaging
-%define		_enable_debug_packages	0
 
 %description
 A high-level IO library that provides validation, type conversion, and
@@ -44,7 +39,7 @@ Pliki dokumentacji do biblioteki highline.
 
 %build
 ruby setup.rb config \
-	--siterubyver=%{ruby_rubylibdir} \
+	--siterubyver=%{ruby_vendorlibdir} \
 	--sodir=%{ruby_archdir}
 
 ruby setup.rb setup
@@ -52,14 +47,17 @@ ruby setup.rb setup
 rdoc --op rdoc -S --main README README lib
 rdoc --ri --op ri lib
 
-rm -rf ri/Kernel
-rm -rf ri/Object
-rm -f ri/created.rid
+rm -r ri/Kernel
+rm -r ri/Object
+rm -r ri/IO
+rm -r ri/String
+rm -r ri/StringIO
+rm ri/cache.ri
+rm ri/created.rid
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{ruby_rubylibdir},%{ruby_ridir},%{ruby_rdocdir}}
-
+install -d $RPM_BUILD_ROOT{%{ruby_vendorlibdir},%{ruby_ridir},%{ruby_rdocdir}}
 ruby setup.rb install \
 	--prefix=$RPM_BUILD_ROOT
 
@@ -72,8 +70,8 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc CHANGELOG README TODO
-%{ruby_rubylibdir}/highline.rb
-%{ruby_rubylibdir}/highline
+%{ruby_vendorlibdir}/highline.rb
+%{ruby_vendorlibdir}/highline
 
 %files rdoc
 %defattr(644,root,root,755)
