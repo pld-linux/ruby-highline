@@ -7,13 +7,13 @@
 Summary:	HighLine is a high-level command-line IO library
 Summary(pl.UTF-8):	Wysokopoziomowa biblioteka I/O z kontrolą poprawności, konwersją typów itp. do aplikacji CLI
 Name:		ruby-%{pkgname}
-Version:	1.6.11
-Release:	4
+Version:	3.1.2
+Release:	1
 License:	GPL v2+ or Ruby
 Group:		Development/Languages
 Source0:	http://rubygems.org/downloads/%{pkgname}-%{version}.gem
-# Source0-md5:	878416e4943c73f7429845765fe4195d
-URL:		http://highline.rubyforge.org
+# Source0-md5:	bc9b1b4769980f802db4c42600ad7536
+URL:		https://github.com/JEG2/highline
 BuildRequires:	rpm-rubyprov
 BuildRequires:	rpmbuild(macros) >= 1.656
 %if %{with tests}
@@ -55,11 +55,11 @@ find lib -name '*.rb' | xargs chmod a-x
 %__gem_helper spec
 
 %if %{with tests}
-ruby -S testrb -Ilib test/*
+%{__ruby} -S testrb -Ilib test/*
 %endif
 
 %if %{with doc}
-rdoc --op rdoc -S --main README README lib
+rdoc --op rdoc --main README.md README.md lib
 rdoc --ri --op ri lib
 
 rm -r ri/Kernel
@@ -88,7 +88,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc README CHANGELOG TODO AUTHORS INSTALL LICENSE
+%doc README.md Changelog.md TODO AUTHORS LICENSE COPYING
 %{ruby_vendorlibdir}/%{pkgname}.rb
 %{ruby_vendorlibdir}/%{pkgname}
 %{ruby_specdir}/%{pkgname}-%{version}.gemspec
@@ -97,5 +97,8 @@ rm -rf $RPM_BUILD_ROOT
 %files rdoc
 %defattr(644,root,root,755)
 %{ruby_rdocdir}/%{name}-%{version}
+%{ruby_ridir}/File
 %{ruby_ridir}/HighLine
+%{ruby_ridir}/IOConsoleCompatible
+%{ruby_ridir}/Tempfile
 %endif
