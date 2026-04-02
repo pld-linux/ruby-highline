@@ -8,7 +8,7 @@ Summary:	HighLine is a high-level command-line IO library
 Summary(pl.UTF-8):	Wysokopoziomowa biblioteka I/O z kontrolą poprawności, konwersją typów itp. do aplikacji CLI
 Name:		ruby-%{pkgname}
 Version:	3.1.2
-Release:	1
+Release:	2
 License:	GPL v2+ or Ruby
 Group:		Development/Languages
 Source0:	http://rubygems.org/downloads/%{pkgname}-%{version}.gem
